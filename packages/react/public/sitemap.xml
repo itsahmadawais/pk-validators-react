@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  TODO: replace the domain below with the final deployed URL.
   Storybook is a client-rendered single-page app: every story/docs "page"
   is served from this same index.html and differentiated only by a
   `?path=...` query string handled client-side, so there is exactly one

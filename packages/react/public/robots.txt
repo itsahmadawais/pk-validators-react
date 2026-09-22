@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# TODO: update this once the site has a final custom/Vercel domain.
 Sitemap: https://pk-validators-react.vercel.app/sitemap.xml

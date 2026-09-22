@@ -1,6 +1,6 @@
 {
   "name": "@pk-validators/core",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Zero-dependency validation and formatting for Pakistani data formats (CNIC, phone, passport).",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

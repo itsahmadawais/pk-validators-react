@@ -3,6 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/pk-validators-react.svg)](https://www.npmjs.com/package/pk-validators-react)
 [![license](https://img.shields.io/npm/l/pk-validators-react.svg)](./LICENSE)
 
+**[Live Demo & Docs](https://pk-validators-react.vercel.app)** · **[GitHub](https://github.com/itsahmadawais/pk-validators-react)** · **[npm](https://www.npmjs.com/package/pk-validators-react)**
+
 React hooks, masked input components, and Zod/react-hook-form resolvers for
 validating Pakistani **CNIC**, **mobile phone**, and **passport** numbers —
 in English and Urdu.
@@ -84,7 +86,9 @@ const { register, formState } = useForm({
 
 Full API reference and live examples (every component's empty/typing/
 valid/invalid states, both locales, plus custom-UI examples for all three
-fields) are in Storybook:
+fields) are live at **[pk-validators-react.vercel.app](https://pk-validators-react.vercel.app)**.
+
+To run it locally instead:
 
 ```bash
 git clone https://github.com/itsahmadawais/pk-validators-react

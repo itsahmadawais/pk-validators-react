@@ -1,6 +1,6 @@
 {
   "name": "pk-validators-react",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "React hooks, masked input components, and Zod/react-hook-form resolvers for Pakistani CNIC, phone, and passport validation. One install — no separate core/resolvers packages required.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -41,7 +41,7 @@
     "url": "git+https://github.com/itsahmadawais/pk-validators-react.git",
     "directory": "packages/react"
   },
-  "homepage": "https://github.com/itsahmadawais/pk-validators-react#readme",
+  "homepage": "https://pk-validators-react.vercel.app",
   "bugs": {
     "url": "https://github.com/itsahmadawais/pk-validators-react/issues"
   },
@@ -55,7 +55,7 @@
     "react-hook-form": { "optional": true }
   },
   "dependencies": {
-    "@pk-validators/core": "0.1.0"
+    "@pk-validators/core": "^1.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.3.0",
