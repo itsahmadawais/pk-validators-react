@@ -36,6 +36,15 @@
     "url": "https://github.com/itsahmadawais"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsahmadawais/pk-validators-react.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/itsahmadawais/pk-validators-react#readme",
+  "bugs": {
+    "url": "https://github.com/itsahmadawais/pk-validators-react/issues"
+  },
   "peerDependencies": {
     "react": ">=18",
     "zod": "^3.23.0",

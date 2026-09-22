@@ -3,6 +3,7 @@ dist
 storybook-static
 .turbo
 *.log
+*.tgz
 
 # internal planning doc — not meant for the public repo
 SPEC.md

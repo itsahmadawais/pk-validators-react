@@ -16,6 +16,15 @@
     "url": "https://github.com/itsahmadawais"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsahmadawais/pk-validators-react.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/itsahmadawais/pk-validators-react#readme",
+  "bugs": {
+    "url": "https://github.com/itsahmadawais/pk-validators-react/issues"
+  },
   "devDependencies": {
     "tsup": "^8.0.0",
     "typescript": "^5.6.0",
