@@ -1,0 +1,8 @@
+node_modules
+dist
+storybook-static
+.turbo
+*.log
+
+# internal planning doc — not meant for the public repo
+SPEC.md

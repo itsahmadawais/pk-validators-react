@@ -1,0 +1,17 @@
+{
+  "name": "pk-validators-react-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "storybook": "npm run storybook --workspace=pk-validators-react",
+    "build-storybook": "npm run build-storybook --workspace=pk-validators-react",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

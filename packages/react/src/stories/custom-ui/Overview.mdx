@@ -1,0 +1,74 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Custom UI/Overview" />
+
+# Custom UI with hooks
+
+`<CnicInput />`, `<PhoneInput />`, and `<PassportInput />` are the
+batteries-included option. If you want your own markup instead — a
+floating label, a design system's own input component, a different error
+layout, a completely different look per field — use the underlying hooks
+directly: `useCnic`, `usePkPhone`, `usePassport`. They return the same
+validation/formatting state the components use internally, with **zero
+opinions about rendering**. You own every element, class name, and style.
+
+The three pages under this guide (**CNIC**, **Phone**, **Passport**) each
+build a fully custom field from scratch — different visual style per field,
+on purpose, to make the point that nothing about the look is prescribed.
+
+## The pattern
+
+```tsx
+const field = useCnic();     // or usePkPhone() / usePassport()
+
+<input value={field.value} onChange={field.onChange} />
+{!field.isValid && field.isComplete && <span>{field.error}</span>}
+```
+
+That's the whole contract: bind `value`/`onChange` to your input, and
+branch your own UI off `isValid`/`isComplete`/`error`/the domain-specific
+fields below.
+
+## What each hook returns
+
+All three share this base shape:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `value` | `string` | Current formatted/masked value — bind this to your input's `value`. |
+| `rawValue` | `string` | The last raw string passed to `onChange`, before formatting. |
+| `formatted` | `string` | Same as `value` — exposed under both names to match the core validators' result shape. |
+| `onChange` | `(e \| string) => void` | Bind to your input's `onChange`, or call with a plain string. |
+| `isValid` | `boolean` | `true` only once the value is complete **and** structurally valid. |
+| `isComplete` | `boolean` | `true` once enough characters are present to make a final valid/invalid call. `false` (not an error) while the user is still mid-input. |
+| `error` | `string \| undefined` | Set only when `isComplete && !isValid`. **English text only** — see the callout below. |
+
+Plus domain-specific fields:
+
+| Hook | Extra fields |
+|---|---|
+| `useCnic` | `gender?: 'male' \| 'female'` — set only once valid. |
+| `usePkPhone` | `e164?: string`, `carrier?: string` — both set only once valid. |
+| `usePassport` | *(none — passport has no extra derivable metadata)* |
+
+> **`error` is English-only.** The pre-built `<CnicInput locale="ur" />`
+> etc. components localize their *own* hint/error text internally — that
+> localization does not extend to the hooks' `error` field. If you're
+> building a custom Urdu UI, derive your own message from
+> `isValid`/`isComplete`/`gender` etc. rather than displaying `field.error`
+> directly; see the CNIC example page for one way to do this.
+
+## Reachability of the error state differs per field
+
+Not all three fields can actually reach an "invalid" state the same way —
+worth knowing before you build a demo around it:
+
+- **CNIC** — real CNICs have no checksum digit, so `isComplete && !isValid`
+  is **never true**. Once 13 digits are entered, it's always valid. The
+  CNIC example page below shows the gender-detection UI instead, since
+  there's no error state to demonstrate.
+- **Phone** — reaches invalid *before* 11 digits if the structure is
+  already wrong (e.g. a landline-style `021...` prefix), and also if 11
+  digits don't form a valid local number.
+- **Passport** — reaches invalid as soon as the typed prefix can no longer
+  become `[A-Z]{2}[0-9]{7}` (e.g. a 3rd letter), well before 9 characters.

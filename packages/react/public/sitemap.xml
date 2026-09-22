@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TODO: replace the domain below with the final deployed URL.
+  Storybook is a client-rendered single-page app: every story/docs "page"
+  is served from this same index.html and differentiated only by a
+  `?path=...` query string handled client-side, so there is exactly one
+  crawlable document rather than a page per story. Listing individual
+  story query-string URLs here would not add real indexable content and
+  would just be noise that goes stale as story IDs change.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://pk-validators-react.vercel.app/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

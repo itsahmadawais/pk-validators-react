@@ -1,0 +1,24 @@
+{
+  "name": "@pk-validators/core",
+  "version": "0.1.0",
+  "description": "Zero-dependency validation and formatting for Pakistani data formats (CNIC, phone, passport).",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run"
+  },
+  "keywords": ["pakistan", "cnic", "phone", "passport", "validation"],
+  "author": {
+    "name": "Ahmad Awais",
+    "url": "https://github.com/itsahmadawais"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0"
+  }
+}

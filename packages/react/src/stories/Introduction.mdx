@@ -1,0 +1,141 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# pk-validators-react
+
+Masked inputs, live-validity React hooks, and form-library resolvers for
+Pakistani **CNIC**, **mobile phone**, and **passport** numbers — in English
+and Urdu.
+
+One package covers everything below. You do not need to separately install
+a "core" or "resolvers" package.
+
+## Install
+
+```bash
+npm install pk-validators-react
+```
+
+That's it for components and hooks. If you also want the Zod schemas and
+`react-hook-form` resolver, install their peers too (only needed if you use
+that part of the package):
+
+```bash
+npm install pk-validators-react zod react-hook-form
+```
+
+## Quick start: components
+
+Drop-in, masked, controlled inputs. They format the value as the user types,
+distinguish "still typing" from "actually invalid" (no error flash on the
+first keystroke), and set `aria-invalid`/`aria-describedby` correctly.
+
+```tsx
+import { useState } from 'react';
+import { CnicInput, PhoneInput, PassportInput } from 'pk-validators-react';
+
+function ProfileForm() {
+  const [cnic, setCnic] = useState('');
+  const [phone, setPhone] = useState('');
+  const [passport, setPassport] = useState('');
+
+  return (
+    <form>
+      <CnicInput value={cnic} onChange={setCnic} locale="en" />
+      <PhoneInput value={phone} onChange={setPhone} locale="en" />
+      <PassportInput value={passport} onChange={setPassport} locale="en" />
+    </form>
+  );
+}
+```
+
+Switch `locale="ur"` for Urdu hint/error text and right-to-left input.
+See the **Inputs** section in the sidebar for every state (empty,
+while-typing, valid, invalid, both locales) rendered live.
+
+## Quick start: hooks
+
+Want your own markup instead of the pre-built inputs? Use the hooks
+directly — same validation/formatting logic, no UI opinions.
+
+```tsx
+import { useCnic } from 'pk-validators-react';
+
+function CustomCnicField() {
+  const cnic = useCnic();
+
+  return (
+    <div>
+      <input value={cnic.value} onChange={cnic.onChange} />
+      {!cnic.isValid && cnic.isComplete && <span>Invalid CNIC</span>}
+      {cnic.gender && <span>Detected: {cnic.gender}</span>}
+    </div>
+  );
+}
+```
+
+`isComplete` is `false` (not an error) while the user is still mid-input —
+`useCnic`, `usePkPhone`, and `usePassport` all follow this pattern.
+
+> **Why does a "bad" CNIC never show `error`?** Real Pakistani CNICs have no
+> checksum digit — the format is 5+7+1 digits, where the last digit is a
+> gender-parity indicator, not a validity check. So `useCnic`/`validateCnic`
+> only ever return `incomplete` (fewer than 13 digits) or `valid` (exactly
+> 13 digits); there's no rule under which a complete 13-digit CNIC is
+> rejected. `usePkPhone` and `usePassport` *do* have a reachable invalid
+> state (e.g. a landline-style `021...` prefix, or `ABC` for passport) — see
+> **Guides → Custom UI** in the sidebar for a detailed walkthrough (hook
+> return-shape reference, plus a live, fully custom field per component:
+> CNIC, Phone, and Passport, each with genuinely different UI).
+
+## Quick start: plain validator functions
+
+The underlying validators are re-exported from the same package, for
+non-input use cases (validating on submit, server actions, etc.):
+
+```ts
+import { validateCnic, validatePkPhone, validatePassport } from 'pk-validators-react';
+
+validateCnic('3520212345671');
+// { valid: true, incomplete: false, formatted: '35202-1234567-1', gender: 'male' }
+```
+
+(These also exist as a standalone zero-dependency package, `@pk-validators/core`,
+for non-React/backend code — most React apps never need to install that
+directly, since this package re-exports it.)
+
+## Quick start: react-hook-form + Zod
+
+```tsx
+import { useForm } from 'react-hook-form';
+import { pkResolver } from 'pk-validators-react/resolvers';
+
+function Form() {
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: pkResolver({ cnic: true, phone: true }),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(console.log)}>
+      <input {...register('cnic')} />
+      {errors.cnic && <span>{errors.cnic.message}</span>}
+      <input {...register('phone')} />
+      {errors.phone && <span>{errors.phone.message}</span>}
+    </form>
+  );
+}
+```
+
+Standalone Zod schemas (`pkCnicSchema`, `pkPhoneSchema`, `pkPassportSchema`)
+are also available from `pk-validators-react/resolvers` if you're composing
+a larger Zod schema instead of using `pkResolver` directly.
+
+## What's out of scope (for now)
+
+CNIC province/district decoding, and anything beyond CNIC/phone/passport
+(NICOP, B-Form, NTN, IBAN, etc.) are intentionally not implemented yet,
+rather than shipped with guessed data. The passport format and
+carrier-prefix table are both best-effort and flagged as such in source —
+reconfirm against an authoritative source before relying on them for
+anything compliance-sensitive.
