@@ -1,5 +1,7 @@
 # pk-validators-react
 
+**[Live Demo & Docs](https://pk-validators-react.vercel.app)** · **[GitHub](https://github.com/itsahmadawais/pk-validators-react)**
+
 React hooks, masked controlled input components, and (via a subpath) Zod +
 `react-hook-form` resolvers for Pakistani CNIC, mobile phone, and passport
 numbers. **One package** — validators are re-exported from

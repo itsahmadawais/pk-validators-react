@@ -1,8 +1,15 @@
 # @pk-validators/core
 
+**[GitHub](https://github.com/itsahmadawais/pk-validators-react)**
+
 Zero-dependency validation and formatting for Pakistani data formats: CNIC,
 mobile phone numbers, and passport numbers. Works anywhere JavaScript runs —
 no React required.
+
+Using this with React? See [pk-validators-react](https://www.npmjs.com/package/pk-validators-react)
+and its [live demo](https://pk-validators-react.vercel.app) instead — it
+re-exports everything here plus hooks, masked input components, and
+Zod/RHF resolvers.
 
 ## Install
 
